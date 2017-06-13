@@ -1,6 +1,6 @@
 package printing;
 
-public class Printer<T> implements IMachine
+public class Printer<T extends ICartridge> implements IMachine
 {
 	private String modelNumber;
 	private PaperTray paperTray = new PaperTray();
@@ -20,11 +20,17 @@ public class Printer<T> implements IMachine
 		System.out.println("Warming up printer");
 		machine.TurnOn();
 	}
+
+	public <U extends ICartridge> void printUsingCartridge(U cartridge, String message)
+    {
+        System.out.println(cartridge.toString());
+        System.out.println(message);
+    }
 	
 	public void print(int copies)
 	{
 
-		System.out.println(cartridge.toString());
+		System.out.println(this.cartridge.getFillPercentage());
 
 		String onStatus = "";
 		if(machine.isOn())
@@ -83,4 +89,8 @@ public class Printer<T> implements IMachine
 	public boolean isOn() {
 		return machine.isOn();
 	}
+
+    public  T getCartridge() {
+	    return this.cartridge;
+    }
 }
